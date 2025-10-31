@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGlobe Services</title>
+    <style>
+        body { 
+            margin: 0; 
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Latar belakang hitam untuk tampilan realistis */
+            color: #fff;
+            overflow: hidden; /* Menghilangkan scrollbar */
+        }
+
+        /* CSS untuk Navigasi */
+        nav {
+            position: absolute; /* Agar navigasi tetap di atas bola dunia */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(51, 51, 51, 0.5); /* Latar belakang semi-transparan */
+            z-index: 10; /* Memastikan navigasi di atas elemen lain */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: rgba(221, 221, 221, 0.3);
+            color: black;
+        }
+
+        /* CSS untuk Kontainer Bola Dunia */
+        #globe-container {
+            width: 100%;
+            height: 100vh; /* Mengisi seluruh tinggi layar */
+        }
+
+        /* CSS untuk Profil Sosial */
+        #social-profile {
+            position: absolute; /* Agar profil tetap di atas bola dunia */
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10; /* Memastikan profil di atas elemen lain */
+        }
+
+        #social-profile a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #social-profile a:hover {
+            text-decoration: underline;
+        }
+
+        /* CSS untuk Modal */
+        .modal {
+            display: none; /* Tersembunyi secara default */
+            position: fixed; /* Tetap di tempat */
+            z-index: 11; /* Pastikan di atas elemen lain */
+            left: 0;
+            top: 0;
+            width: 100%; /* Lebar penuh */
+            height: 100%; /* Tinggi penuh */
+            overflow: auto; /* Aktifkan scroll jika konten terlalu panjang */
+            background-color: rgba(0,0,0,0.4); /* Latar belakang gelap semi-transparan */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% dari atas dan tengah */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Bisa disesuaikan */
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* CSS untuk Layanan Modal */
+        #services-modal .modal-content {
+            background-image: url('https://i.imgur.com/example-bg.jpg'); /* Ganti dengan URL gambar latar belakang yang sah (misalnya, gambar teknologi) */
+            background-size: cover;
+            color: white;
+            border: none;
+            text-shadow: 2px 2px 4px #000000; /* Efek bayangan untuk teks */
+        }
+
+        #services-modal h2, #services-modal h3 {
+            color: white;
+        }
+
+        #services-modal ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #services-modal li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi Menu -->
+    <nav>
+        <ul>
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#" id="services-link">Layanan</a></li>
+            <li><a href="#" id="contact-link">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <!-- Kontainer untuk Bola Dunia -->
+    <div id="globe-container"></div>
+
+    <!-- Profil Sosial -->
+    <div id="social-profile">
+        <a href="https://www.instagram.com/techglobe_services" target="_blank">
+            Kunjungi Profil Instagram @techglobe_services
+        </a>
+        <a href="https://www.youtube.com/channel/techsupportchannel" target="_blank">
+            Kunjungi Channel YouTube TechSupportChannel
+        </a>
+    </div>
+
+    <!-- Modal Kontak -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Info Kontak</h2>
+            <p>Nomor HP: <a href="tel:+6281234567890">+62 812-3456-7890</a></p>
+            <p>WhatsApp: <a href="https://wa.me/6281234567890" target="_blank">Kirim Pesan WhatsApp</a></p>
+            <p>Email: contact@techglobeservices.com</p>
+            <p><em>Catatan: Semua komunikasi untuk layanan legal dan konsultasi teknis.</em></p>
+        </div>
+    </div>
+
+    <!-- Modal Layanan -->
+    <div id="services-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Layanan Kami</h2>
+            <p><em>Kami menyediakan layanan teknologi yang sah dan profesional. Harga dapat berubah berdasarkan spesifikasi; konsultasikan untuk detail.</em></p>
+            
+            <h3>Layanan PC Komputer</h3>
+            <ul>
+                <li><strong>Jenis Layanan:</strong> Perakitan PC, Instalasi Sistem Operasi, Instalasi Software, Maintenance dan Perbaikan</li>
+                <li><strong>Spesifikasi:</strong>
+                    <ul>
+                        <li>Prosesor: Intel Core i3, i5, i7 atau AMD Ryzen 3, 5, 7</li>
+                        <li>RAM: 8GB, 16GB, 32GB</li>
+                        <li>Storage: HDD 500GB, 1TB atau SSD 256GB, 512GB</li>
+                        <li>Sistem Operasi: Windows 10, Windows 11, Linux</li>
+                    </ul>
+                </li>
+                <li><strong>Merek:</strong> Dell, HP, Lenovo, Asus</li>
+                <li><strong>Harga:</strong>
+                    <ul>
+                        <li>Perakitan PC: Rp 5.000.000 - Rp 20.000.000</li>
+                        <li>Instalasi Sistem Operasi: Rp 500.000 - Rp 1.000.000</li>
+                        <li>Instalasi Software: Rp 200.000 - Rp 500.000</li>
+                        <li>Maintenance dan Perbaikan: Rp 500.000 - Rp 2.000.000</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Layanan Jaringan WiFi</h3>
+            <ul>
+                <li><strong>Jenis Layanan:</strong> Instalasi dan Pengelolaan Jaringan WiFi untuk Rumah atau Kantor</li>
+                <li><strong>Jangkauan:</strong> Wilayah Indonesia (Jawa, Sumatra, Papua)</li>
+                <li><strong>Nama Jaringan:</strong> TechGlobe Networks</li>
+                <li><strong>Spesifikasi:</strong>
+                    <ul>
+                        <li>Kecepatan: hingga 100 Mbps</li>
+                        <li>Jangkauan: hingga 10 km (tergantung setup)</li>
+                        <li>Keamanan: WPA2, WPA3</li>
+                    </ul>
+                </li>
+                <li><strong>Harga:</strong> Rp 5.000.000 - Rp 20.000.000 per bulan (termasuk instalasi awal)</li>
+            </ul>
+
+            <h3>Layanan Perakitan dan Perbaikan HP</h3>
+            <ul>
+                <li><strong>Jenis Layanan:</strong> Perakitan HP, Ganti LCD, Ganti Baterai, Perbaikan Mesin</li>
+                <li><strong>Merek:</strong> Samsung, Apple, Xiaomi, Oppo, Vivo</li>
+                <li><strong>Harga:</strong>
+                    <ul>
+                        <li>Perakitan HP: Rp 500.000 - Rp 2.000.000</li>
+                        <li>Ganti LCD: Rp 500.000 - Rp 1.500.000</li>
+                        <li>Ganti Baterai: Rp 200.000 - Rp 500.000</li>
+                        <li>Perbaikan Mesin: Rp 500.000 - Rp 2.000.000</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Detail Perakitan dan Perbaikan HP</h3>
+            <ul>
+                <li><strong>Perakitan HP:</strong> Perakitan HP dari komponen yang dipilih pelanggan dengan garansi</li>
+                <li><strong>Ganti LCD:</strong> Penggantian LCD yang rusak dengan yang baru</li>
+                <li><strong>Ganti Baterai:</strong> Penggantian baterai yang rusak dengan yang baru</li>
+                <li><strong>Perbaikan Mesin:</strong> Perbaikan mesin HP yang rusak atau tidak berfungsi dengan baik</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.js"></script>
+    <script>
+        // Inisialisasi scene, camera, dan renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true }); // Menambahkan antialias untuk tampilan lebih halus
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('globe-container').appendChild(renderer.domElement);
+
+        // Membuat bola dunia
+        const geometry = new THREE.SphereGeometry(5, 64, 64); // Meningkatkan detail geometri
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('https://i.imgur.com/WvKkxGQ.jpg'); // Ganti dengan URL tekstur peta dunia resolusi tinggi
+        const material = new THREE.MeshStandardMaterial({ map: texture, roughness: 0.5, metalness: 0.1 }); // Menggunakan MeshStandardMaterial untuk tampilan realistis
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+
+        // Menambahkan cahaya
+        const ambientLight = new THREE.AmbientLight(0x404040); // Cahaya ambient
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Cahaya directional
+        directionalLight.position.set(5, 3, 5);
+        scene.add(directionalLight);
+
+        camera.position.z = 10;
+
+        // Kontrol untuk memutar bola dunia
+        let isDragging = false;
+        let previousMouseX = 0;
+        let previousMouseY = 0;
+
+        const rotateGlobe = (deltaX, deltaY) => {
+            globe.rotation.y += deltaX * 0.005;
+            globe.rotation.x += deltaY * 0.005;
+        };
+
+        document.getElementById('globe-container').addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMouseX = e.clientX;
+            previousMouseY = e.clientY;
+        });
+
+        document.getElementById('globe-container').addEventListener('touchstart', (e) => {
+            isDragging = true;
+            previousMouseX = e.touches[0].clientX;
+            previousMouseY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const deltaX = e.clientX - previousMouseX;
+                const deltaY = e.clientY - previousMouseY;
+                rotateGlobe(deltaX, deltaY);
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+            }
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const deltaX = e.touches[0].clientX - previousMouseX;
+                const deltaY = e.touches[0].clientY - previousMouseY;
+                rotateGlobe(deltaX, deltaY);
+                previousMouseX = e.touches[0].clientX;
+                previousMouseY = e.touches[0].clientY;
+                e.preventDefault(); // Mencegah scroll pada layar sentuh
+            }
+        }, { passive: false });
+
+        // Animasi
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsif terhadap perubahan ukuran layar
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Modal Kontak
+        const contactLink = document.getElementById('contact-link');
+        const contactModal = document.getElementById('contact-modal');
+        const servicesLink = document.getElementById('services-link');
+        const servicesModal = document.getElementById('services-modal');
+        const closeBtn = document.querySelectorAll('.close');
+
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            contactModal.style.display = "block";
+        });
+
+        servicesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            servicesModal.style.display = "block";
+        });
+
+        closeBtn.forEach(btn => {
+            btn.addEventListener('click', () => {
+                contactModal.style.display = "none";
+                servicesModal.style.display = "none";
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == contactModal) {
+                contactModal.style.display = "none";
+            }
+            if (e.target == servicesModal) {
+                servicesModal.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
